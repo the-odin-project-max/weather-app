@@ -26,7 +26,8 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({
 	template: 'src/index.html.ejs',
-	author: process.env.AUTHOR
+	author: process.env.AUTHOR,
+	title: "Weather App",
   })],
   devServer: {
     static: {

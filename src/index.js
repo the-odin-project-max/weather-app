@@ -1,17 +1,22 @@
-import { listContacts } from "./pages/page_1.js";
-import "./css/style.css";
+// Function that hit weather API and return data
+const getWeather = async (city) => {
+	const apiKey = process.env.API_KEY;
+	const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`);
+	const data = await response.json();
+	return data;
+}
 
-// const contentDiv = document.createElement("div");
-// contentDiv.id = "content";
-// document.body.appendChild(contentDiv);
+// Function that display weather data
+const displayWeather = async (city) => {
+	const weatherData = await getWeather(city);
+	const weatherDiv = document.getElementById("weather");
+	weatherDiv.textContent = "";
+	const weatherList = document.createElement("ul");
+	const weatherDataList = document.createElement("li");
+	weatherDataList.textContent = `City: ${weatherData.name}, Temperature: ${weatherData.main.temp}`;
+	weatherList.appendChild(weatherDataList);
+	weatherDiv.appendChild(weatherList);
+}
 
-const homePageButton = document.createElement("button");
-homePageButton.textContent = "Home Page";
-homePageButton.addEventListener("click", () => {
-	listContacts();
-});
-
-document.body.prepend(homePageButton);
-
-listContacts();
-
+// Display weather data for the first time
+displayWeather("London");

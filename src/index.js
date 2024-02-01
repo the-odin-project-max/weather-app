@@ -11,6 +11,13 @@ const API_KEY = process.env.API_KEY;
 const getCurrentWeather = async (city) => {
 	const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`);
 	const data = await response.json();
+
+	if(data.cod === 404) {
+		// throw new Error(data.message);
+		alert(data.message);
+		return getCurrentWeather("Paris");
+	}
+
 	return data;
 }
 
@@ -41,5 +48,26 @@ const displayWeather = async (city) => {
 	setTodayPanel(city);
 }
 
-// Display weather data for the first time
+const searchButton = document.getElementById("city-query-button");
+const searchInput = document.getElementById("city-query-input");
+
+searchButton.addEventListener("click", () => {
+	if(searchInput.value !== "") {
+		displayWeather(searchInput.value);
+	} else {
+		displayWeather("Paris");
+	}
+});
+
+searchInput.addEventListener("keyup", (event) => {
+	if(event.key === "Enter") {
+		if(searchInput.value !== "") {
+			displayWeather(searchInput.value);
+		} else {
+			displayWeather("Paris");
+		}
+	}
+});
+
 displayWeather("Paris");
+

@@ -15,4 +15,8 @@ function importAll(r) {
   
 const images = importAll(require.context('../img', false, /\.(png|jpe?g|svg)$/));
 
-export { process, images };
+function urlFromIconCode(iconCode) {
+	return `http://openweathermap.org/img/w/${iconCode}.png`;
+}
+
+export { process, images, urlFromIconCode };

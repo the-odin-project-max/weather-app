@@ -1,28 +1,45 @@
-import {process, images} from './scripts/constants.js';
+import {process, urlFromIconCode} from './scripts/constants.js';
+
+import sunHours from './components/sun-hours.js';
+import currentWeather from './components/current-weather.js';
+
+
+import "./css/style.css";
+const API_KEY = process.env.API_KEY;
 
 // Function that hit weather API and return data
-const getWeather = async (city) => {
-	const apiKey = process.env.API_KEY;
-	const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`);
+const getCurrentWeather = async (city) => {
+	const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`);
 	const data = await response.json();
 	return data;
 }
 
-const setTodayPanel = (weatherData) => {
+const setTodayPanel = async (city) => {
+	const currentWeatherData = await getCurrentWeather(city);
+	console.log(currentWeatherData);
 	const weatherDiv = document.getElementById("today");
-	weatherDiv.textContent = "";
-	const weatherList = document.createElement("ul");
-	const weatherDataList = document.createElement("li");
-	weatherDataList.textContent = `City: ${weatherData.name}, Temperature: ${weatherData.main.temp}`;
-	weatherList.appendChild(weatherDataList);
-	weatherDiv.appendChild(weatherList);
+
+	// Clear weatherDiv
+	while (weatherDiv.firstChild) {
+		weatherDiv.removeChild(weatherDiv.firstChild);
+	}
+
+	// Display City as Title
+	const cityTitle = document.createElement("h2");
+	cityTitle.textContent = currentWeatherData.name;
+	cityTitle.style.textAlign = "center";
+
+	weatherDiv.appendChild(cityTitle);
+
+	sunHours(currentWeatherData, weatherDiv);
+	currentWeather(currentWeatherData, weatherDiv);
+
 }
 
 // Function that display weather data
 const displayWeather = async (city) => {
-	const weatherData = await getWeather(city);
-	setTodayPanel(weatherData);
+	setTodayPanel(city);
 }
 
 // Display weather data for the first time
-displayWeather("London");
+displayWeather("Paris");

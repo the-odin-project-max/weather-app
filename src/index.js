@@ -26,34 +26,39 @@ const getCurrentWeather = async (city) => {
 }
 
 const setTodayPanel = async (city) => {
-	const weatherDiv = document.getElementById("today");
+	const contentDiv = document.getElementById("content");
+	const todayDiv = document.getElementById("today");
 	
-	// Clear weatherDiv
-	while (weatherDiv.firstChild) {
-		weatherDiv.removeChild(weatherDiv.firstChild);
+	// Clear todayDiv
+	while (todayDiv.firstChild) {
+		todayDiv.removeChild(todayDiv.firstChild);
 	}
 
 	// create loader
 	const loader = document.createElement("span");
 	loader.className = "loader";
-	weatherDiv.appendChild(loader);
+	todayDiv.appendChild(loader);
 
 	const currentWeatherData = await getCurrentWeather(city);
 	console.log(currentWeatherData);
 	const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
 
 	// Remove loader
-	weatherDiv.removeChild(loader);
-
+	todayDiv.removeChild(loader);
 	// Display City as Title
 	const cityTitle = document.createElement("h2");
+	contentDiv.removeChild(contentDiv.childNodes[2]);
 	cityTitle.textContent = `${currentWeatherData.name} - ${regionNamesInEnglish.of(currentWeatherData.sys.country)}`;
 	cityTitle.style.textAlign = "center";
+	contentDiv.insertBefore(cityTitle, contentDiv.childNodes[2]);
 
-	weatherDiv.appendChild(cityTitle);
+	// Title
+	const title = document.createElement("h3");
+	title.textContent = "Current Weather (Today)";
+	todayDiv.appendChild(title);
 
-	sunHours(currentWeatherData, weatherDiv);
-	currentWeather(currentWeatherData, weatherDiv);
+	sunHours(currentWeatherData, todayDiv);
+	currentWeather(currentWeatherData, todayDiv);
 
 }
 

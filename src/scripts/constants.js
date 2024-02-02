@@ -1,7 +1,8 @@
 
 const process = {
 	env: {
-		API_KEY: "1810d5f4b037b1f6ea4692c6b589d8ba"
+		API_KEY: "1810d5f4b037b1f6ea4692c6b589d8ba",
+		API_KEY_PERSONAL: "c0062fcacffd48779fe133436240202"
 	}
 }
 

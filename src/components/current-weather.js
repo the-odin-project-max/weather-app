@@ -1,4 +1,4 @@
-import {images, urlFromIconCode} from "../scripts/constants.js";
+import {urlFromIconCode} from "../scripts/constants.js";
 
 function currentWeather(weatherData, weatherDiv) {
 	const currentWeatherDiv = document.createElement("div");

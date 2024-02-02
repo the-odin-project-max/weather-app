@@ -8,7 +8,6 @@ function currentWeather(weatherData, weatherDiv) {
 	currentWeatherDiv.style.justifyContent = "space-around";
 	currentWeatherDiv.style.alignItems = "center";
 	currentWeatherDiv.style.width = "100%";
-	currentWeatherDiv.style.height = "100px";
 
 	// Weather icon
 	const weatherIconDiv = document.createElement("div");
@@ -26,7 +25,6 @@ function currentWeather(weatherData, weatherDiv) {
 	const weatherDescription = document.createElement("span");
 	weatherDescription.textContent = weatherData.weather[0].description;
 	weatherIconDiv.appendChild(weatherDescription);
-
 	currentWeatherDiv.appendChild(weatherIconDiv);
 
 	// Temperature
@@ -40,10 +38,36 @@ function currentWeather(weatherData, weatherDiv) {
 	const temperature = document.createElement("span");
 	temperature.textContent = `Temperature: ${weatherData.main.temp}°C`;
 	temperatureDiv.appendChild(temperature);
+	currentWeatherDiv.appendChild(temperatureDiv);
+
+	// Wind
+	const windDiv = document.createElement("div");
+	temperatureDiv.className = "wind-div";
+	temperatureDiv.style.display = "flex";
+	temperatureDiv.style.flexDirection = "column";
+	temperatureDiv.style.justifyContent = "center";
+	temperatureDiv.style.alignItems = "center";
+
+	const wind = document.createElement("span");
+	wind.textContent = `Wind speed: ${weatherData.wind.speed}km/h`;
+	windDiv.appendChild(wind);
+	currentWeatherDiv.appendChild(windDiv);
+
+	// Humidity
+	const humidityDiv = document.createElement("div");
+	temperatureDiv.className = "humidity-div";
+	temperatureDiv.style.display = "flex";
+	temperatureDiv.style.flexDirection = "column";
+	temperatureDiv.style.justifyContent = "center";
+	temperatureDiv.style.alignItems = "center";
+
+	const humidity = document.createElement("span");
+	humidity.textContent = `Humidity : ${weatherData.main.humidity}%`;
+	humidityDiv.appendChild(humidity);
+	currentWeatherDiv.appendChild(humidityDiv);
 
 
 	weatherDiv.appendChild(currentWeatherDiv);
-	weatherDiv.appendChild(temperatureDiv);
 
 }
 

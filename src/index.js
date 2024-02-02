@@ -36,22 +36,18 @@ const setTodayPanel = async (city) => {
 	// create loader
 	const loader = document.createElement("span");
 	loader.className = "loader";
-
-	// set temp width and height for weatherDiv
-	weatherDiv.style.width = "100%";
-	weatherDiv.style.height = "100%";
-
 	weatherDiv.appendChild(loader);
 
 	const currentWeatherData = await getCurrentWeather(city);
+	console.log(currentWeatherData);
+	const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
 
 	// Remove loader
 	weatherDiv.removeChild(loader);
 
-
 	// Display City as Title
 	const cityTitle = document.createElement("h2");
-	cityTitle.textContent = currentWeatherData.name;
+	cityTitle.textContent = `${currentWeatherData.name} - ${regionNamesInEnglish.of(currentWeatherData.sys.country)}`;
 	cityTitle.style.textAlign = "center";
 
 	weatherDiv.appendChild(cityTitle);

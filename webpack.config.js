@@ -29,9 +29,6 @@ module.exports = {
 			template: 'src/index.html.ejs',
 			author: process.env.AUTHOR,
 			title: "Weather App",
-		}),
-		new webpack.DefinePlugin({
-			'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
 		})
 	],
 

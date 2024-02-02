@@ -5,6 +5,8 @@ import currentWeather from './components/current-weather.js';
 
 
 import "./css/style.css";
+import "./css/loader.css";
+
 const API_KEY = process.env.API_KEY;
 
 // Function that hit weather API and return data
@@ -17,19 +19,35 @@ const getCurrentWeather = async (city) => {
 		alert(data.message);
 		return getCurrentWeather("Paris");
 	}
+	// wait 5 seconds
+	await new Promise((resolve) => setTimeout(resolve, 1000));
 
 	return data;
 }
 
 const setTodayPanel = async (city) => {
-	const currentWeatherData = await getCurrentWeather(city);
-	console.log(currentWeatherData);
 	const weatherDiv = document.getElementById("today");
-
+	
 	// Clear weatherDiv
 	while (weatherDiv.firstChild) {
 		weatherDiv.removeChild(weatherDiv.firstChild);
 	}
+
+	// create loader
+	const loader = document.createElement("span");
+	loader.className = "loader";
+
+	// set temp width and height for weatherDiv
+	weatherDiv.style.width = "100%";
+	weatherDiv.style.height = "100%";
+
+	weatherDiv.appendChild(loader);
+
+	const currentWeatherData = await getCurrentWeather(city);
+
+	// Remove loader
+	weatherDiv.removeChild(loader);
+
 
 	// Display City as Title
 	const cityTitle = document.createElement("h2");

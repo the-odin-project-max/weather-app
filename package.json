@@ -9,7 +9,8 @@
 	  "build:production": "webpack --mode production",
 	  "build:development": "webpack --mode development",
 	  "start:development": "webpack serve --mode development --open",
-	  "deploy:gh-pages": "git checkout -b gh-pages-local && npm run build:production && git add -f dist && git commit -m \"update dist file\" && git subtree push --prefix dist origin gh-pages && git checkout - && git branch -D gh-pages-local"
+	  "deploy:gh-pages": "git checkout -b gh-pages-local && npm run build:production && git add -f dist && git commit -m \"update dist file\" && git subtree push --prefix dist origin gh-pages && git checkout - && git branch -D gh-pages-local",
+	  "deploy:gh-pages:force": "git checkout -b gh-pages-local && npm run build:production && git add -f dist && git commit -m \"update dist file\" && git push origin `git subtree split --prefix dist gh-pages-local`:gh-pages --force && git checkout - && git branch -D gh-pages-local"
 	},
 	"repository": {
 	  "type": "git",
